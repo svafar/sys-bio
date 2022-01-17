@@ -1,2 +1,2 @@
 # sys-bio
-systems biology projects
+Hér eru öll forritin mín sem tengjast systems-biology kúrsinum.
