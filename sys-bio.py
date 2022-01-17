@@ -1,6 +1,8 @@
+from stat import ST_DEV
 import matplotlib.pyplot as plt
 import networkx as nx
 import math, random
+from statistics import stdev
 from statistics import mean
 
 # A function that takes only the number of nodes and edges desired, returning three values:
@@ -62,14 +64,21 @@ print('Number of nodes       : %d' % node_count)
 print('Number of arrows      : %d' % edge_count)
 print('Number of runs        : %d' % run_count)
 print('----------------------')
-print('Mean of self-arrows   : %d' % mean(self_arrow_counts))
+if run_count == 1:
+    print('Number of self-arrows : %d' % self_arrow_counts[0])
+elif run_count > 1:
+    print('Mean of self-arrows   : %.2f' % mean(self_arrow_counts))
+    print('Standard deviation    : %.2f' % stdev(self_arrow_counts))
 
-# Make graph from nodes and edges.
-G = nx.Graph()
-G.add_nodes_from(nodes)
-G.add_edges_from(edges)
+def create_graph(nodes, edges):
+    G = nx.Graph()
+    G.add_nodes_from(nodes)
+    G.add_edges_from(edges)
 
-seed = random.randint(0,100)
-pos = nx.spring_layout(G, seed=seed)  # Seed for reproducible layout
-nx.draw(G,pos=pos)
-plt.show()
+    seed = random.randint(0,100)
+    pos = nx.spring_layout(G, seed=seed)  # Seed for reproducible layout
+    nx.draw(G,pos=pos)
+    plt.show()
+
+# Graph creation seems broken but is left here in case someone wants to fix it.
+#create_graph(nodes, edges)
