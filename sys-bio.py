@@ -52,7 +52,7 @@ nodes, edges, self_arrow_count = run(node_count, edge_count)
 print()
 print('### GLORIOUS STATISTICS ###')
 print()
-print('Number of nodes       : %d' % len(nodes))
+print('Number of nodes       : %d' % node_count)
 print('Number of arrows      : %d' % edge_count)
 print('Number of self-arrows : %d' % self_arrow_count)
 
