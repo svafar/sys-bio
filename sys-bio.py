@@ -1,15 +1,16 @@
 import matplotlib.pyplot as plt
 import networkx as nx
 import math, random
+
 G = nx.Graph()
-i = int(input("Number of nodes"))
-nodes = []
-for k in range(i+1):
-    nodes.append(k)
-nodes.remove(0)
+
+# Create a a list of 1..N, where N is what the user asked for.
+i = int(input("Number of nodes: "))
+nodes = [r for r in range(1, i+1)]
+
 edges = []
 for k in nodes:
-    a = random.choices(list,k=2)
+    a = random.choices(nodes, k=2)
     edges += [a]
 print(nodes)
 print("Edges between two nodes:")
