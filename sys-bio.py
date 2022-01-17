@@ -24,21 +24,16 @@ for unused in range(edge_count):
     # Note that we purposely allow for selecting two nodes that are
     # identical, because a node may connect to itself.
     a = random.choices(nodes, k=2)
+    while [a] in edges:
+        # Make sure that we don't get a duplicate edge expressing the same
+        # nodes in the same direction. (No duplicate arrows.)
+        a = random.choices(nodes, k=2)
     edges += [a]
 
-#print(nodes)
-print("Edges between two nodes:")
-#print(edges)
-
+# Add nodes and edges.
 G.add_nodes_from(nodes)
-edge_list = []
-while len(edge_list)<len(edges):
-    nodeA=random.sample(nodes,1)[0]
-    nodeB=random.sample(nodes,1)[0]
-    if (nodeA, nodeB) not in edge_list:
-        if (nodeB, nodeA) not in edge_list:
-            edge_list.append((nodeA, nodeB))
-G.add_edges_from(edge_list)
+G.add_edges_from(edges)
+
 seed = random.randint(0,100)
 pos = nx.spring_layout(G, seed=seed)  # Seed for reproducible layout
 nx.draw(G,pos=pos)
