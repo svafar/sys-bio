@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import networkx as nx
 import math, random
+from statistics import mean
 
 # A function that takes only the number of nodes and edges desired, returning three values:
 # 1. nodes: The generated nodes, a list from 1 to `note_count`, like [1, 2, 3].
@@ -17,7 +18,7 @@ def run(node_count, edge_count):
     # This will become a list of two-instance lists.
     # We also grab the number of self-arrows.
     edges = []
-    self_arrow_count = 0
+    self_arrow_count = 0.0
     for unused in range(edge_count):
         # k=2 means we want two nodes, describing an edge, i.e. a node from which
         # the edge is connected, and the node to which it is connected.
@@ -33,7 +34,7 @@ def run(node_count, edge_count):
 
         # Count the self-arrows.
         if a[0] == a[1]:
-            self_arrow_count += 1
+            self_arrow_count += 1.0
     return nodes, edges, self_arrow_count
 
 # Ask how many nodes we want in each run.
@@ -45,8 +46,13 @@ edge_count = int(input("Number of edges: "))
 # Ask how many runs we want, given the aforementioned variables.
 run_count = int(input('Number of runs: '))
 
-# Crunch the numbers.
-nodes, edges, self_arrow_count = run(node_count, edge_count)
+# Iterate as often as requested ("runs"), and collect the number of
+# self-arrows each run, compiling them in a list ingeniously named
+# self_arrow_counts.
+self_arrow_counts = []
+for r in range(0, run_count):
+    nodes, edges, self_arrow_count = run(node_count, edge_count)
+    self_arrow_counts.append(self_arrow_count)
 
 # Print some statistics.
 print()
@@ -54,7 +60,9 @@ print('### GLORIOUS STATISTICS ###')
 print()
 print('Number of nodes       : %d' % node_count)
 print('Number of arrows      : %d' % edge_count)
-print('Number of self-arrows : %d' % self_arrow_count)
+print('Number of runs        : %d' % run_count)
+print('----------------------')
+print('Mean of self-arrows   : %d' % mean(self_arrow_counts))
 
 # Make graph from nodes and edges.
 G = nx.Graph()
