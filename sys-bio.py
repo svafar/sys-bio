@@ -16,7 +16,9 @@ edge_count = int(input("Number of edges: "))
 
 # Generate random links (edges) between nodes.
 # This will become a list of two-instance lists.
+# We also grab the number of self-arrows.
 edges = []
+self_arrows = 0
 for unused in range(edge_count):
     # k=2 means we want two nodes, describing an edge, i.e. a node from which
     # the edge is connected, and the node to which it is connected.
@@ -29,6 +31,18 @@ for unused in range(edge_count):
         # nodes in the same direction. (No duplicate arrows.)
         a = random.choices(nodes, k=2)
     edges += [a]
+
+    # Count the self-arrows.
+    if a[0] == a[1]:
+        self_arrows += 1
+
+# Print some statistics.
+print()
+print('### GLORIOUS STATISTICS ###')
+print()
+print('Number of nodes       : %d' % len(nodes))
+print('Number of arrows      : %d' % edge_count)
+print('Number of self-arrows : %d' % self_arrows)
 
 # Add nodes and edges.
 G.add_nodes_from(nodes)
