@@ -2,8 +2,6 @@ import matplotlib.pyplot as plt
 import networkx as nx
 import math, random
 
-G = nx.Graph()
-
 # Create a a list of 1..N, where N is what the user asked for.
 # If user selects 400, we'll get a list with the numbers 1 up to 400.
 # Example, if 6 is provided:
@@ -44,7 +42,8 @@ print('Number of nodes       : %d' % len(nodes))
 print('Number of arrows      : %d' % edge_count)
 print('Number of self-arrows : %d' % self_arrows)
 
-# Add nodes and edges.
+# Make graph from nodes and edges.
+G = nx.Graph()
 G.add_nodes_from(nodes)
 G.add_edges_from(edges)
 
