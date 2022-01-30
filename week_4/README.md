@@ -1,0 +1,1 @@
+Exercise on week 4, question 1.
